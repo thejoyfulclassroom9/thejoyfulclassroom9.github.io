@@ -35,7 +35,7 @@ header p{margin:14px 0 0;background:#fff;padding:4px 14px;border-radius:999px;fo
 main{max-width:1060px;margin:0 auto;padding:28px 18px 40px}
 nav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:-6px 0 26px}
 nav a{text-decoration:none;font-weight:700;padding:10px 20px;border-radius:999px;border:2px solid currentColor}
-nav a.m{color:var(--encre)} nav a.s{color:var(--foret)}
+nav a.e{color:#9A3B2E} nav a.m{color:var(--encre)} nav a.s{color:var(--foret)}
 nav a:hover{background:#fff}
 
 section{margin-top:28px}
@@ -58,6 +58,16 @@ section .intro{color:var(--doux);margin:0 0 16px}
 .nouveau{position:absolute;top:14px;right:14px;background:var(--soleil);color:var(--texte);font-weight:800;font-size:13px;padding:3px 10px;border-radius:999px;transform:rotate(4deg)}
 .vide{background:#fff;border:2px dashed #C9D2CC;border-radius:16px;padding:22px;color:var(--doux);text-align:center}
 
+/* Évaluations à venir */
+#evals{margin:0 0 8px}
+#evals h2{color:#9A3B2E}
+.evals{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.eval{background:#fff;border-radius:16px;padding:16px 18px;border-top:8px solid var(--c);display:flex;flex-direction:column;gap:4px}
+.eval .niv-badge{align-self:flex-start;background:var(--c);color:var(--texte);font-weight:800;font-size:15px;padding:2px 12px;border-radius:999px}
+.eval .quand{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:22px;line-height:1.15;margin-top:4px}
+.eval .heure{font-weight:700;color:var(--doux)}
+.eval .sujet{margin:4px 0 0}
+.eval.bientot .quand::after{content:" · bientôt!";color:#9A3B2E;font-size:16px}
 footer{text-align:center;color:var(--doux);font-size:14px;padding:20px}
 @media(max-width:640px){header{grid-template-columns:1fr;min-height:260px}header .math{min-height:130px}header .sci{min-height:130px}}
 </style>
@@ -81,9 +91,16 @@ footer{text-align:center;color:var(--doux);font-size:14px;padding:20px}
 
 <main>
   <nav>
+    <a class="e" href="#evals">📅 Évaluations</a>
     <a class="m" href="#math">📐 Math</a>
     <a class="s" href="#science">🔬 Sciences</a>
   </nav>
+
+  <section id="evals">
+    <h2>📅 Évaluations à venir</h2>
+    <p class="intro">Repère ton niveau et prépare-toi avec les documents de la section Sciences.</p>
+    <div class="evals" id="grilleEvals"></div>
+  </section>
 
   <section id="math">
     <h2>📐 Math</h2>
@@ -109,7 +126,34 @@ const SOUS_TITRE = "École Marie-Anne · 3e à 6e année";
 // Pour ajouter une activité : copie un bloc { ... }, colle-le dans la liste
 // et change les informations. matiere : "math" ou "science".
 // date : la date d'ajout (le badge « Nouveau! » s'affiche pendant 14 jours).
+// Évaluations : elles disparaissent toutes seules le lendemain de leur date.
+// niveau : "3e", "4e", "5e" ou "6e". date : AAAA-MM-JJ.
+const EVALUATIONS = [
+  { niveau:"3e", matiere:"Sciences", date:"2026-10-23", heure:"11 h 00", sujet:"La verge d'or + les 10 essences d'arbres" },
+  { niveau:"6e", matiere:"Sciences", date:"2026-10-26", heure:"11 h 30", sujet:"La verge d'or + les 10 essences d'arbres" },
+  { niveau:"4e", matiere:"Sciences", date:"2026-10-26", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" },
+  { niveau:"5e", matiere:"Sciences", date:"2026-10-27", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" },
+];
+
 const RESSOURCES = [
+  {
+    matiere: "science",
+    icone: "🌳",
+    titre: "Les 10 essences d'arbres",
+    description: "Ta fiche aide-mémoire : feuilles, écorces, fruits, qui les mange et à quoi ils servent. Parfait pour étudier!",
+    niveaux: "3e à 6e année",
+    lien: "essences-arbres.pdf",
+    date: "2026-10-19"
+  },
+  {
+    matiere: "science",
+    icone: "🌼",
+    titre: "La verge d'or : la plante qu'on accuse à tort!",
+    description: "La présentation vue en classe : son portrait, ses alliés pollinisateurs et le grand mythe du rhume des foins.",
+    niveaux: "3e à 6e année",
+    lien: "verge-dor.pdf",
+    date: "2026-10-19"
+  },
   {
     matiere: "science",
     icone: "🌲",
@@ -137,6 +181,25 @@ function remplir(id,matiere,vide){
   const items=RESSOURCES.filter(r=>r.matiere===matiere).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
   document.getElementById(id).innerHTML=items.length?items.map(carte).join(""):`<div class="vide">${vide}</div>`;
 }
+
+const COULEURS={"3e":"#F6C46A","4e":"#8CCB7E","5e":"#7FB2E5","6e":"#EFA3C0"};
+const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+(function(){
+  const auj=new Date();auj.setHours(0,0,0,0);
+  const liste=EVALUATIONS.map(e=>{const [a,m,j]=e.date.split("-").map(Number);return {...e,d:new Date(a,m-1,j)};})
+    .filter(e=>e.d>=auj).sort((x,y)=>x.d-y.d||x.heure.localeCompare(y.heure));
+  const el=document.getElementById("grilleEvals");
+  if(!liste.length){el.innerHTML='<div class="vide">Aucune évaluation prévue pour l\'instant. 😎</div>';return;}
+  el.innerHTML=liste.map(e=>{
+    const jours=Math.round((e.d-auj)/864e5);
+    const quand=jours===0?"Aujourd'hui":jours===1?"Demain":`${JOURS[e.d.getDay()]} ${e.d.getDate()} ${MOIS[e.d.getMonth()]}`;
+    return `<div class="eval${jours<=2?' bientot':''}" style="--c:${COULEURS[e.niveau]||'#ccc'}">
+      <span class="niv-badge">${esc(e.niveau)} année</span>
+      <span class="quand">${esc(quand.charAt(0).toUpperCase()+quand.slice(1))}</span>
+      <span class="heure">${esc(e.heure)} · ${esc(e.matiere)}</span>
+      <p class="sujet">${esc(e.sujet)}</p></div>`;}).join("");
+})();
 remplir("grilleMath","math","Les activités de math arrivent bientôt!");
 remplir("grilleScience","science","Les activités de sciences arrivent bientôt!");
 document.getElementById("sousTitre").textContent=SOUS_TITRE;
