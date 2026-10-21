@@ -67,6 +67,11 @@ section .intro{color:var(--doux);margin:0 0 16px}
 .eval .quand{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:22px;line-height:1.15;margin-top:4px}
 .eval .heure{font-weight:700;color:var(--doux)}
 .eval .sujet{margin:4px 0 0}
+.eval .cap{color:#C2571B;font-weight:800;font-size:14px;margin-top:8px;padding-top:8px;border-top:2px dashed #e6e3d8}
+.eval ul.app{list-style:none;padding:0;margin:2px 0 0;display:flex;flex-direction:column;gap:4px}
+.eval ul.app li{font-size:14.5px;line-height:1.35;padding-left:22px;position:relative}
+.eval ul.app li::before{content:"☐";position:absolute;left:0;top:0}
+.rappel{margin-top:14px;background:#eaf5ee;border-radius:14px;padding:12px 16px;font-size:15px;line-height:1.5}
 .eval.bientot .quand::after{content:" · bientôt!";color:#9A3B2E;font-size:16px}
 footer{text-align:center;color:var(--doux);font-size:14px;padding:20px}
 @media(max-width:640px){header{grid-template-columns:1fr;min-height:260px}header .math{min-height:130px}header .sci{min-height:130px}}
@@ -98,8 +103,9 @@ footer{text-align:center;color:var(--doux);font-size:14px;padding:20px}
 
   <section id="evals">
     <h2>📅 Évaluations à venir</h2>
-    <p class="intro">Repère ton niveau et prépare-toi avec les documents de la section Sciences.</p>
+    <p class="intro">Repère ton niveau, coche ce que tu maîtrises et révise avec les fiches de la section Sciences.</p>
     <div class="evals" id="grilleEvals"></div>
+    <div class="rappel" id="rappelArbres">🍁 <b>Feuillus :</b> érable à sucre, érable rouge, bouleau blanc, bouleau jaune, chêne rouge, peuplier faux-tremble<br>🌲 <b>Conifères :</b> sapin baumier, épinette blanche, pin blanc, thuya occidental</div>
   </section>
 
   <section id="math">
@@ -129,10 +135,10 @@ const SOUS_TITRE = "École Marie-Anne · 3e à 6e année";
 // Évaluations : elles disparaissent toutes seules le lendemain de leur date.
 // niveau : "3e", "4e", "5e" ou "6e". date : AAAA-MM-JJ.
 const EVALUATIONS = [
-  { niveau:"3e", matiere:"Sciences", date:"2026-10-23", heure:"11 h 00", sujet:"La verge d'or + les 10 essences d'arbres" },
-  { niveau:"6e", matiere:"Sciences", date:"2026-10-26", heure:"11 h 30", sujet:"La verge d'or + les 10 essences d'arbres" },
-  { niveau:"4e", matiere:"Sciences", date:"2026-10-26", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" },
-  { niveau:"5e", matiere:"Sciences", date:"2026-10-27", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" },
+  { niveau:"3e", matiere:"Sciences", date:"2026-10-23", heure:"11 h 00", sujet:"Les 10 essences d'arbres" , apprendre:["Dire si un arbre est un feuillu 🍁 ou un conifère 🌲", "Nommer 3 utilités d'un arbre pour l'humain (au choix)", "Associer un animal à un arbre (au choix)", "Donner 1 info de plus sur un arbre (au choix)"] },
+  { niveau:"6e", matiere:"Sciences", date:"2026-10-26", heure:"11 h 30", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "Associer 2 animaux à leur arbre", "🌼 Verge d'or : donner 3 caractéristiques"] },
+  { niveau:"4e", matiere:"Sciences", date:"2026-10-26", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "🌼 Verge d'or : donner 3 caractéristiques"] },
+  { niveau:"5e", matiere:"Sciences", date:"2026-10-27", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "Associer 1 animal à un arbre (au choix)", "🌼 Verge d'or : donner 3 caractéristiques"] },
 ];
 
 const RESSOURCES = [
@@ -190,7 +196,7 @@ const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","
   const liste=EVALUATIONS.map(e=>{const [a,m,j]=e.date.split("-").map(Number);return {...e,d:new Date(a,m-1,j)};})
     .filter(e=>e.d>=auj).sort((x,y)=>x.d-y.d||x.heure.localeCompare(y.heure));
   const el=document.getElementById("grilleEvals");
-  if(!liste.length){el.innerHTML='<div class="vide">Aucune évaluation prévue pour l\'instant. 😎</div>';return;}
+  if(!liste.length){document.getElementById('rappelArbres').style.display='none';el.innerHTML='<div class="vide">Aucune évaluation prévue pour l\'instant. 😎</div>';return;}
   el.innerHTML=liste.map(e=>{
     const jours=Math.round((e.d-auj)/864e5);
     const quand=jours===0?"Aujourd'hui":jours===1?"Demain":`${JOURS[e.d.getDay()]} ${e.d.getDate()} ${MOIS[e.d.getMonth()]}`;
@@ -198,7 +204,7 @@ const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","
       <span class="niv-badge">${esc(e.niveau)} année</span>
       <span class="quand">${esc(quand.charAt(0).toUpperCase()+quand.slice(1))}</span>
       <span class="heure">${esc(e.heure)} · ${esc(e.matiere)}</span>
-      <p class="sujet">${esc(e.sujet)}</p></div>`;}).join("");
+      <p class="sujet">${esc(e.sujet)}</p>${(e.apprendre||[]).length?`<div class="cap">Je dois être capable de :</div><ul class="app">${e.apprendre.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>`:""}</div>`;}).join("");
 })();
 remplir("grilleMath","math","Les activités de math arrivent bientôt!");
 remplir("grilleScience","science","Les activités de sciences arrivent bientôt!");
