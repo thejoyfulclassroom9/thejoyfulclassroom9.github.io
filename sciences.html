@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icones/portail.png">
+<title>Sciences avec M. Stéphane</title>
+</head>
+<body>
+<header class="barre"><div class="int">
+  <a class="accueil" href="index.html">Accueil</a>
+  <nav aria-label="Pages">
+    <a href="math.html">Math</a>
+    <a href="sciences.html" aria-current="page">Sciences</a>
+    <a class="portail" data-portail href="#">Le portail</a>
+  </nav>
+</div></header>
+<div class="tete">
+  <img class="pix" src="icones/eprouvette.png" alt="" width="88" height="88">
+  <div><h1>Sciences</h1><p>Le projet en cours, des défis et des découvertes.</p></div>
+</div>
+
+<main>
+  <section aria-labelledby="t-projet">
+    <h2 id="t-projet" class="section-titre">Le projet en cours</h2>
+    <div class="bloc projet">
+      <h3 id="projetTitre"></h3>
+      <p id="projetTexte"></p>
+      <div class="dates" id="projetDates"></div>
+      <div class="grille" id="projetFiches"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-act">
+    <h2 id="t-act" class="section-titre">Les activités de M. Stéphane</h2>
+    <div class="grille" id="grilleActivites"></div>
+  </section>
+
+  <section aria-labelledby="t-sites">
+    <h2 id="t-sites" class="section-titre">Sites à explorer</h2>
+    <p class="section-intro">Tous gratuits. Ils s'ouvrent dans un nouvel onglet, le site de la classe reste ouvert.</p>
+    <div class="grille" id="grilleSites"></div>
+  </section>
+
+  <section aria-labelledby="t-sorties">
+    <h2 id="t-sorties" class="section-titre">Idées de sorties en famille</h2>
+    <p class="section-intro">Pour les familles qui ont envie d'une belle activité culturelle.</p>
+    <div class="grille" id="grilleSorties"></div>
+  </section>
+</main>
+
+<footer>
+  <p class="pied-texte">M. Stéphane, École Marie-Anne, <span id="annee"></span></p>
+  <div class="sol" aria-hidden="true"></div>
+</footer>
+<script src="site.js"></script>
+<script>
+/* =========================================================
+   CE QU'IL FAUT MODIFIER POUR METTRE LA PAGE À JOUR
+   ========================================================= */
+var PROJET = {
+  titre: "Les essences d'arbres et la verge d'or",
+  texte: "Notre projet repose sur deux fiches à conserver : les 10 essences d'arbres et la verge d'or. Garde-les précieusement!",
+  // date : AAAA-MM-JJ
+  debuts: [
+    { niveau: "3e", date: "2026-10-23", heure: "11 h 00" },
+    { niveau: "4e", date: "2026-10-26", heure: "14 h 10" },
+    { niveau: "5e", date: "2026-10-27", heure: "14 h 10" },
+    { niveau: "6e", date: "2026-10-26", heure: "11 h 30" }
+  ],
+  fiches: [
+    { titre: "Les 10 essences d'arbres", lien: "essences-arbres.pdf", niveaux: "3e à 6e année",
+      description: "Feuilles, écorces, fruits, qui les mange et à quoi ils servent." },
+    { titre: "La verge d'or", lien: "verge-dor.pdf", niveaux: "3e à 6e année",
+      description: "Sa carte d'identité, ses alliés, le mythe du rhume des foins et le défi de la galle!" }
+  ]
+};
+
+var ACTIVITES = [
+  { titre: "Défi des essences d'arbres", niveaux: "3e à 6e année", date: "2026-09-27",
+    lien: "https://script.google.com/macros/s/AKfycbwBoba_kfofpXw3g_yowKZV_xkmOaLPR7cN2TtgPImqyHQHeQxLWDqhCbAi-2AgjlAp/exec",
+    description: "Entre les réponses de ton équipe pour les 7 stations et découvre ton score." }
+];
+
+var SITES = [
+  { icone: "eprouvette", titre: "Les Débrouillards", lien: "https://www.lesdebrouillards.com/",
+    raisons: ["Des expériences à faire à la maison", "Des quiz, des articles et des BD", "Fait au Québec depuis plus de 40 ans"] },
+  { icone: "loupe-feuille", titre: "iNaturalist", lien: "https://www.inaturalist.org/",
+    raisons: ["Identifie une plante, un insecte ou un champignon avec une photo", "Découvre ce qui a été observé près de chez toi", "Moins de 13 ans : utilise l'app Seek, de la même équipe, sans compte"] },
+  { icone: "oiseau", titre: "Merlin Bird ID", lien: "https://merlin.allaboutbirds.org/",
+    raisons: ["Identifie un oiseau avec une photo ou avec son chant", "Une app gratuite du Cornell Lab of Ornithology", "Parfait pour nos projets sur les oiseaux"] },
+  { icone: "robot", titre: "Scratch", lien: "https://scratch.mit.edu/",
+    raisons: ["Crée tes propres jeux et animations avec des blocs", "En français et gratuit", "Partage tes projets et inspire-toi de ceux des autres"] },
+  { icone: "puce", titre: "MakeCode micro:bit", lien: "https://makecode.microbit.org/",
+    raisons: ["Programme la carte micro:bit avec des blocs", "Un simulateur intégré : ça marche même sans la carte", "Pour nos projets en Option science"] },
+  { icone: "telescope", titre: "Stellarium Web", lien: "https://stellarium-web.org/",
+    raisons: ["Le ciel en direct, de jour comme de nuit", "Trouve les planètes et les constellations", "Rien à installer"] },
+  { icone: "vent", titre: "Windy", lien: "https://www.windy.com/",
+    raisons: ["Le vent, les nuages et la pluie animés sur une carte", "Regarde la météo arriver sur Rawdon", "Un lien direct avec notre routine météo"] }
+];
+
+var SORTIES = [
+  { titre: "Espace pour la vie", lien: "https://espacepourlavie.ca/",
+    description: "Le Biodôme, l'Insectarium, le Jardin botanique et le Planétarium de Montréal. Leur site regorge aussi d'informations gratuites sur la nature." }
+];
+/* ========================================================= */
+
+var COULEURS = { "3e": "var(--n3)", "4e": "var(--n4)", "5e": "var(--n5)", "6e": "var(--n6)" };
+var MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+var JOURS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+
+document.getElementById("projetTitre").textContent = PROJET.titre;
+document.getElementById("projetTexte").textContent = PROJET.texte;
+(function () {
+  var auj = new Date(); auj.setHours(0, 0, 0, 0);
+  document.getElementById("projetDates").innerHTML = PROJET.debuts.map(function (d) {
+    var p = d.date.split("-").map(Number), dt = new Date(p[0], p[1] - 1, p[2]);
+    var etat = dt < auj ? "Projet commencé le" : dt.getTime() === auj.getTime() ? "Début du projet : aujourd'hui!" : "Début du projet";
+    var quand = JOURS[dt.getDay()] + " " + dt.getDate() + " " + MOIS[dt.getMonth()];
+    return '<div class="date" style="--c:' + COULEURS[d.niveau] + '"><span class="niv">' + esc(d.niveau) + ' année</span>' +
+      '<span class="etat">' + etat + '</span><span class="quand">' + esc(quand.charAt(0).toUpperCase() + quand.slice(1)) + ', ' + esc(d.heure) + '</span></div>';
+  }).join("");
+})();
+document.getElementById("projetFiches").innerHTML = PROJET.fiches.map(carte).join("");
+remplir("grilleActivites", ACTIVITES, "D'autres activités arrivent bientôt!");
+document.getElementById("grilleSites").innerHTML = SITES.map(carte).join("");
+document.getElementById("grilleSorties").innerHTML = SORTIES.map(carte).join("");
+</script>
+</body>
+</html>

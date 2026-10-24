@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icones/portail.png">
+<title>Math avec M. Stéphane</title>
+</head>
+<body>
+<header class="barre"><div class="int">
+  <a class="accueil" href="index.html">Accueil</a>
+  <nav aria-label="Pages">
+    <a href="math.html" aria-current="page">Math</a>
+    <a href="sciences.html">Sciences</a>
+    <a class="portail" data-portail href="#">Le portail</a>
+  </nav>
+</div></header>
+<div class="tete">
+  <img class="pix" src="icones/compas.png" alt="" width="88" height="88">
+  <div><h1>Math</h1><p>Des jeux et des outils pour pratiquer, en classe ou à la maison.</p></div>
+</div>
+
+<main>
+  <section aria-labelledby="t-act">
+    <h2 id="t-act" class="section-titre">Les activités de M. Stéphane</h2>
+    <div class="grille" id="grilleActivites"></div>
+  </section>
+
+  <section aria-labelledby="t-sites">
+    <h2 id="t-sites" class="section-titre">Sites à explorer</h2>
+    <p class="section-intro">Tous gratuits. Ils s'ouvrent dans un nouvel onglet, le site de la classe reste ouvert.</p>
+    <div class="grille" id="grilleSites"></div>
+  </section>
+</main>
+
+<footer>
+  <p class="pied-texte">M. Stéphane, École Marie-Anne, <span id="annee"></span></p>
+  <div class="sol" aria-hidden="true"></div>
+</footer>
+<script src="site.js"></script>
+<script>
+/* =========================================================
+   CE QU'IL FAUT MODIFIER POUR METTRE LA PAGE À JOUR
+   icone : nom d'une image du dossier icones (sans .png).
+   Sans icône, la carte affiche la première lettre du titre.
+   date : AAAA-MM-JJ (badge « Nouveau! » pendant 14 jours).
+   ========================================================= */
+var ACTIVITES = [
+];
+
+var SITES = [
+  { icone: "ecran", titre: "Alloprof", lien: "https://www.alloprof.qc.ca/",
+    raisons: ["Des fiches et des vidéos qui suivent le programme du Québec", "Des jeux pour pratiquer chaque notion", "De l'aide gratuite si tu bloques dans tes devoirs"] },
+  { icone: "cible", titre: "Khan Academy", lien: "https://fr.khanacademy.org/",
+    raisons: ["Des exercices du plus facile au plus difficile, à ton rythme", "Une vidéo d'explication quand tu bloques", "Gratuit et sans publicité"] },
+  { icone: "cavalier", titre: "Lichess (échecs)", lien: "https://lichess.org/",
+    raisons: ["Stratégie et tactique : penser plusieurs coups à l'avance", "Plan cartésien : chaque case a ses coordonnées (a1, e4, h8...)", "Valeur des pièces : pion 1, fou et cavalier 3, tour 5, dame 9. Calcule qui gagne l'échange!", "Gratuit, sans publicité, avec des problèmes à résoudre"] },
+  { icone: "calculatrice", titre: "Le compte est bon", lien: "https://www.logicieleducatif.fr/jeu/le-compte-est-bon-en-ligne",
+    raisons: ["Atteins le nombre cible avec 6 nombres et les 4 opérations", "Du calcul mental et de la stratégie à chaque partie"] },
+  { icone: "rapporteur", titre: "Le bon angle", lien: "https://www.jeuxmaths.fr/jeuxhtml5/lebonangle/jeu/",
+    raisons: ["Estime la mesure d'un angle, puis vérifie", "Développe ton œil avant de sortir le rapporteur"] },
+  { icone: "blocs", titre: "Polypad", lien: "https://mathigon.org/polypad",
+    raisons: ["Blocs base 10, fractions, tangram, géoplan... en version virtuelle", "Comme le matériel de manipulation de la classe", "Gratuit et sans compte"] },
+  { icone: "compas", titre: "GeoGebra", lien: "https://www.geogebra.org/",
+    raisons: ["Construis des figures et mesure des angles", "Explore le plan cartésien", "Gratuit, en français, sans compte"] },
+  { icone: "train", titre: "Toy Theater", lien: "https://toytheater.com/",
+    raisons: ["Des jeux de calcul et de manipulation tout simples", "Très visuel, parfait pour les 3e et 4e", "En anglais, mais facile à comprendre"] }
+];
+/* ========================================================= */
+remplir("grilleActivites", ACTIVITES, "Les activités de M. Stéphane arrivent bientôt!");
+var el = document.getElementById("grilleSites");
+el.innerHTML = SITES.map(carte).join("");
+</script>
+</body>
+</html>

@@ -3,222 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Math et sciences — École Marie-Anne</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icones/portail.png">
+<title>Math et sciences avec M. Stéphane</title>
 <style>
-:root{
-  --foret:#2F5D3A; --feuille:#4E8A5C; --mousse:#EAF2E6;
-  --encre:#1F3A5F; --quadrille:#DCE6F2; --papier:#FBFCFE;
-  --texte:#1E2B20; --doux:#5E6B62; --soleil:#F2B84B;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Nunito",system-ui,sans-serif;color:var(--texte);background:#F7F8F4;font-size:17px;line-height:1.5}
-a{color:inherit}
-:focus-visible{outline:4px solid var(--soleil);outline-offset:3px;border-radius:8px}
-
-/* En-tête : moitié feuille quadrillée (math), moitié forêt (science) */
-header{display:grid;grid-template-columns:1fr 1fr;min-height:230px;position:relative;overflow:hidden}
-header .math{background-color:var(--papier);
-  background-image:linear-gradient(var(--quadrille) 1px,transparent 1px),linear-gradient(90deg,var(--quadrille) 1px,transparent 1px);
-  background-size:22px 22px}
-header .sci{background:var(--foret);position:relative}
-header .sci svg{position:absolute;left:0;bottom:0;width:100%;height:90px}
-header .titre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;pointer-events:none}
-header h1{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:clamp(40px,7vw,72px);line-height:1;margin:0;
-  background:#fff;padding:10px 28px 4px;border-radius:18px;box-shadow:0 6px 0 rgba(0,0,0,.12)}
-header h1 .m{color:var(--encre)} header h1 .s{color:var(--foret)}
-header p{margin:14px 0 0;background:#fff;padding:4px 14px;border-radius:999px;font-weight:700;color:var(--doux)}
-.deco{position:absolute;font-family:"Baloo 2",sans-serif;font-weight:800;color:var(--encre);opacity:.22;font-size:34px}
-
-main{max-width:1060px;margin:0 auto;padding:28px 18px 40px}
-nav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:-6px 0 26px}
-nav a{text-decoration:none;font-weight:700;padding:10px 20px;border-radius:999px;border:2px solid currentColor}
-nav a.e{color:#9A3B2E} nav a.m{color:var(--encre)} nav a.s{color:var(--foret)}
-nav a:hover{background:#fff}
-
-section{margin-top:28px}
-section h2{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:34px;margin:0 0 4px;display:flex;align-items:center;gap:12px}
-section .intro{color:var(--doux);margin:0 0 16px}
-#math h2{color:var(--encre)} #science h2{color:var(--foret)}
-
-.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.carte{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:#fff;border-radius:16px;padding:20px;border:2px solid transparent;position:relative;transition:transform .15s,border-color .15s}
-#math .carte{border-left:10px solid var(--encre)}
-#science .carte{border-left:10px solid var(--feuille)}
-.carte:hover{transform:translateY(-3px);border-color:var(--soleil)}
-@media (prefers-reduced-motion:reduce){.carte{transition:none}.carte:hover{transform:none}}
-.carte .icone{font-size:40px;line-height:1}
-.carte h3{font-family:"Baloo 2",sans-serif;font-size:24px;margin:4px 0 0;line-height:1.1}
-.carte p{margin:0;color:var(--doux)}
-.carte .niv{font-size:14px;font-weight:700;color:var(--doux)}
-.carte .go{margin-top:auto;padding-top:8px;font-weight:700}
-#math .go{color:var(--encre)} #science .go{color:var(--foret)}
-.nouveau{position:absolute;top:14px;right:14px;background:var(--soleil);color:var(--texte);font-weight:800;font-size:13px;padding:3px 10px;border-radius:999px;transform:rotate(4deg)}
-.vide{background:#fff;border:2px dashed #C9D2CC;border-radius:16px;padding:22px;color:var(--doux);text-align:center}
-
-/* Évaluations à venir */
-#evals{margin:0 0 8px}
-#evals h2{color:#9A3B2E}
-.evals{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.eval{background:#fff;border-radius:16px;padding:16px 18px;border-top:8px solid var(--c);display:flex;flex-direction:column;gap:4px}
-.eval .niv-badge{align-self:flex-start;background:var(--c);color:var(--texte);font-weight:800;font-size:15px;padding:2px 12px;border-radius:999px}
-.eval .quand{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:22px;line-height:1.15;margin-top:4px}
-.eval .heure{font-weight:700;color:var(--doux)}
-.eval .sujet{margin:4px 0 0}
-.eval .cap{color:#C2571B;font-weight:800;font-size:14px;margin-top:8px;padding-top:8px;border-top:2px dashed #e6e3d8}
-.eval ul.app{list-style:none;padding:0;margin:2px 0 0;display:flex;flex-direction:column;gap:4px}
-.eval ul.app li{font-size:14.5px;line-height:1.35;padding-left:22px;position:relative}
-.eval ul.app li::before{content:"☐";position:absolute;left:0;top:0}
-.rappel{margin-top:14px;background:#eaf5ee;border-radius:14px;padding:12px 16px;font-size:15px;line-height:1.5}
-.eval.bientot .quand::after{content:" · bientôt!";color:#9A3B2E;font-size:16px}
-footer{text-align:center;color:var(--doux);font-size:14px;padding:20px}
-@media(max-width:640px){header{grid-template-columns:1fr;min-height:260px}header .math{min-height:130px}header .sci{min-height:130px}}
+  .hero { max-width: 1080px; margin: 0 auto; padding: 72px 20px 24px; text-align: center; }
+  .hero h1 { font-family: var(--pixel); color: var(--blanc); font-size: clamp(26px, 7vw, 60px); line-height: 1.35; text-shadow: 5px 5px 0 var(--nuit); }
+  .hero p { margin: 22px 0 0; color: var(--blanc); font-weight: 700; font-size: 20px; text-shadow: 2px 2px 0 var(--nuit); }
+  .portes { max-width: 1080px; margin: 0 auto; padding: 32px 20px 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; align-content: start; }
+  .porte { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 28px 22px 26px; text-decoration: none; }
+  .porte:hover { background: #FFF6D6; }
+  .porte:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--nuit); }
+  .porte img { width: 112px; height: 112px; }
+  .porte h2 { font-family: var(--pixel); font-size: 18px; line-height: 1.5; }
+  .porte p { margin: 0; }
+  .porte.vedette { background: var(--or); }
+  .porte.vedette:hover { background: #FFD24A; }
 </style>
 </head>
 <body>
+<div class="hero">
+  <h1>Math et sciences</h1>
+  <p>Avec M. Stéphane, École Marie-Anne, 3e à 6e année</p>
+</div>
 
-<header>
-  <div class="math" aria-hidden="true">
-    <span class="deco" style="left:8%;top:18%">+</span>
-    <span class="deco" style="left:30%;top:62%">÷</span>
-    <span class="deco" style="left:14%;top:70%">7</span>
-    <span class="deco" style="left:38%;top:14%">×</span>
-    <span class="deco" style="left:24%;top:36%">=</span>
-  </div>
-  <div class="sci" aria-hidden="true"><svg id="foret" viewBox="0 0 600 90" preserveAspectRatio="none"></svg></div>
-  <div class="titre">
-    <h1><span class="m">Math</span> et <span class="s">sciences</span></h1>
-    <p id="sousTitre"></p>
-  </div>
-</header>
-
-<main>
-  <nav>
-    <a class="e" href="#evals">📅 Évaluations</a>
-    <a class="m" href="#math">📐 Math</a>
-    <a class="s" href="#science">🔬 Sciences</a>
-  </nav>
-
-  <section id="evals">
-    <h2>📅 Évaluations à venir</h2>
-    <p class="intro">Repère ton niveau, coche ce que tu maîtrises et révise avec les fiches de la section Sciences.</p>
-    <div class="evals" id="grilleEvals"></div>
-    <div class="rappel" id="rappelArbres">🍁 <b>Feuillus :</b> érable à sucre, érable rouge, bouleau blanc, bouleau jaune, chêne rouge, peuplier faux-tremble<br>🌲 <b>Conifères :</b> sapin baumier, épinette blanche, pin blanc, thuya occidental</div>
-  </section>
-
-  <section id="math">
-    <h2>📐 Math</h2>
-    <p class="intro">Jeux, défis et outils pour pratiquer.</p>
-    <div class="grille" id="grilleMath"></div>
-  </section>
-
-  <section id="science">
-    <h2>🔬 Sciences</h2>
-    <p class="intro">Défis, expériences et découvertes.</p>
-    <div class="grille" id="grilleScience"></div>
-  </section>
+<main class="portes">
+  <a class="bloc porte vedette" data-portail href="#">
+    <img class="pix" src="icones/portail.png" alt="" width="112" height="112">
+    <h2>Le portail</h2>
+    <p>Entre avec ton numéro et ton code secret.</p>
+  </a>
+  <a class="bloc porte" href="math.html">
+    <img class="pix" src="icones/compas.png" alt="" width="112" height="112">
+    <h2>Math</h2>
+    <p>Des jeux et des outils pour pratiquer.</p>
+  </a>
+  <a class="bloc porte" href="sciences.html">
+    <img class="pix" src="icones/eprouvette.png" alt="" width="112" height="112">
+    <h2>Sciences</h2>
+    <p>Le projet en cours, des défis et des découvertes.</p>
+  </a>
 </main>
 
-<footer id="pied"></footer>
-
-<script>
-/* =========================================================
-   CE QU'IL FAUT MODIFIER POUR METTRE LE SITE À JOUR
-   ========================================================= */
-const SOUS_TITRE = "École Marie-Anne · 3e à 6e année";
-
-// Pour ajouter une activité : copie un bloc { ... }, colle-le dans la liste
-// et change les informations. matiere : "math" ou "science".
-// date : la date d'ajout (le badge « Nouveau! » s'affiche pendant 14 jours).
-// Évaluations : elles disparaissent toutes seules le lendemain de leur date.
-// niveau : "3e", "4e", "5e" ou "6e". date : AAAA-MM-JJ.
-const EVALUATIONS = [
-  { niveau:"3e", matiere:"Sciences", date:"2026-10-23", heure:"11 h 00", sujet:"Les 10 essences d'arbres" , apprendre:["Dire si un arbre est un feuillu 🍁 ou un conifère 🌲", "Nommer 3 utilités d'un arbre pour l'humain (au choix)", "Associer un animal à un arbre (au choix)", "Donner 1 info de plus sur un arbre (au choix)"] },
-  { niveau:"6e", matiere:"Sciences", date:"2026-10-26", heure:"11 h 30", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "Associer 2 animaux à leur arbre", "🌼 Verge d'or : donner 3 caractéristiques"] },
-  { niveau:"4e", matiere:"Sciences", date:"2026-10-26", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "🌼 Verge d'or : donner 3 caractéristiques"] },
-  { niveau:"5e", matiere:"Sciences", date:"2026-10-27", heure:"14 h 10", sujet:"La verge d'or + les 10 essences d'arbres" , apprendre:["Associer les arbres aux feuillus 🍁 et aux conifères 🌲", "Associer 3 fruits à leur arbre (au choix)", "Associer 3 feuilles ou aiguilles à leur arbre (au choix)", "Associer 1 animal à un arbre (au choix)", "🌼 Verge d'or : donner 3 caractéristiques"] },
-];
-
-const RESSOURCES = [
-  {
-    matiere: "science",
-    icone: "🌳",
-    titre: "Les 10 essences d'arbres",
-    description: "Ta fiche aide-mémoire : feuilles, écorces, fruits, qui les mange et à quoi ils servent. Parfait pour étudier!",
-    niveaux: "3e à 6e année",
-    lien: "essences-arbres.pdf",
-    date: "2026-10-19"
-  },
-  {
-    matiere: "science",
-    icone: "🌼",
-    titre: "La verge d'or",
-    description: "Ta fiche à conserver pour étudier : sa carte d'identité, ses alliés, le mythe du rhume des foins et le défi de la galle!",
-    niveaux: "3e à 6e année",
-    lien: "verge-dor.pdf",
-    date: "2026-10-19"
-  },
-  {
-    matiere: "science",
-    icone: "🌲",
-    titre: "Défi des essences d'arbres",
-    description: "Entre les réponses de ton équipe pour les 7 stations et découvre ton score.",
-    niveaux: "3e à 6e année",
-    lien: "https://script.google.com/macros/s/AKfycbwBoba_kfofpXw3g_yowKZV_xkmOaLPR7cN2TtgPImqyHQHeQxLWDqhCbAi-2AgjlAp/exec",
-    date: "2026-09-27"
-  },
-];
-/* ========================================================= */
-
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function estNouveau(d){const t=Date.parse(d);return !isNaN(t)&&(Date.now()-t)<14*864e5;}
-function carte(r){
-  return `<a class="carte" href="${esc(r.lien)}" target="_blank" rel="noopener">
-    ${estNouveau(r.date)?'<span class="nouveau">Nouveau!</span>':''}
-    <span class="icone" aria-hidden="true">${esc(r.icone||"⭐")}</span>
-    <h3>${esc(r.titre)}</h3>
-    ${r.niveaux?`<span class="niv">${esc(r.niveaux)}</span>`:''}
-    <p>${esc(r.description)}</p>
-    <span class="go">Ouvrir ↗</span></a>`;
-}
-function remplir(id,matiere,vide){
-  const items=RESSOURCES.filter(r=>r.matiere===matiere).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
-  document.getElementById(id).innerHTML=items.length?items.map(carte).join(""):`<div class="vide">${vide}</div>`;
-}
-
-const COULEURS={"3e":"#F6C46A","4e":"#8CCB7E","5e":"#7FB2E5","6e":"#EFA3C0"};
-const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
-const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
-(function(){
-  const auj=new Date();auj.setHours(0,0,0,0);
-  const liste=EVALUATIONS.map(e=>{const [a,m,j]=e.date.split("-").map(Number);return {...e,d:new Date(a,m-1,j)};})
-    .filter(e=>e.d>=auj).sort((x,y)=>x.d-y.d||x.heure.localeCompare(y.heure));
-  const el=document.getElementById("grilleEvals");
-  if(!liste.length){document.getElementById('rappelArbres').style.display='none';el.innerHTML='<div class="vide">Aucune évaluation prévue pour l\'instant. 😎</div>';return;}
-  el.innerHTML=liste.map(e=>{
-    const jours=Math.round((e.d-auj)/864e5);
-    const quand=jours===0?"Aujourd'hui":jours===1?"Demain":`${JOURS[e.d.getDay()]} ${e.d.getDate()} ${MOIS[e.d.getMonth()]}`;
-    return `<div class="eval${jours<=2?' bientot':''}" style="--c:${COULEURS[e.niveau]||'#ccc'}">
-      <span class="niv-badge">${esc(e.niveau)} année</span>
-      <span class="quand">${esc(quand.charAt(0).toUpperCase()+quand.slice(1))}</span>
-      <span class="heure">${esc(e.heure)} · ${esc(e.matiere)}</span>
-      <p class="sujet">${esc(e.sujet)}</p>${(e.apprendre||[]).length?`<div class="cap">Je dois être capable de :</div><ul class="app">${e.apprendre.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>`:""}</div>`;}).join("");
-})();
-remplir("grilleMath","math","Les activités de math arrivent bientôt!");
-remplir("grilleScience","science","Les activités de sciences arrivent bientôt!");
-document.getElementById("sousTitre").textContent=SOUS_TITRE;
-document.getElementById("pied").textContent="Math et sciences · "+new Date().getFullYear();
-
-// Petite forêt dessinée (même style que les feuilles du défi)
-(function(){let s="",x=-10,g=11;const r=()=>{g=(g*9301+49297)%233280;return g/233280};
-  const c=["#4E8A5C","#3F7550","#5E9A69"];
-  while(x<610){const w=30+r()*26,h=40+r()*40,k=c[Math.floor(r()*3)];
-    s+=r()<.5?`<path d="M${x} 90 L${x+w/2} ${90-h} L${x+w} 90Z" fill="${k}"/>`
-      :`<rect x="${x+w/2-3}" y="${90-h*.45}" width="6" height="${h*.45}" fill="#7A5A3A"/><circle cx="${x+w/2}" cy="${90-h*.62}" r="${w*.42}" fill="${k}"/>`;
-    x+=w*.72;}
-  document.getElementById("foret").innerHTML=s;})();
-</script>
+<footer>
+  <p class="pied-texte">M. Stéphane, École Marie-Anne, <span id="annee"></span></p>
+  <div class="sol" aria-hidden="true"></div>
+</footer>
+<script src="site.js"></script>
 </body>
 </html>
