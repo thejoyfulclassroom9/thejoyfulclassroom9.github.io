@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chargement…</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #e8e8e8; }
+  iframe { display: block; width: 100%; height: 100%; border: 0; }
+</style>
+</head>
+<body>
+<iframe id="cadre" title="Application" allow="clipboard-write; fullscreen"></iframe>
+<script>
+/* Les apps du site : ajoute une ligne ici pour chaque nouvelle app Apps Script */
+var APPS = {
+  portail: { titre: "Le portail",
+             url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec" },
+  prof:    { titre: "Le portail : interface prof",
+             url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=prof" },
+  arbres:  { titre: "Défi des essences d’arbres",
+             url: "https://script.google.com/macros/s/AKfycbwBoba_kfofpXw3g_yowKZV_xkmOaLPR7cN2TtgPImqyHQHeQxLWDqhCbAi-2AgjlAp/exec" }
+};
+var app = APPS[location.hash.slice(1)];
+if (!app) { location.replace("index.html"); }
+else { document.title = app.titre; document.getElementById("cadre").src = app.url; }
+</script>
+</body>
+</html>

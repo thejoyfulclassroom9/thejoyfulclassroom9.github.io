@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /* L'adresse du portail : à changer ici seulement */
-var PORTAIL = 'https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec';
+var PORTAIL = 'app.html#portail';
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('a[data-portail]').forEach(function (a) {
     a.href = PORTAIL; a.target = '_blank'; a.rel = 'noopener';
