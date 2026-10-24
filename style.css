@@ -69,6 +69,7 @@ a.carte:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--nui
 .date .niv { font-family: var(--pixel); font-size: 11px; }
 .date .etat { display: block; font-size: 14px; font-weight: 700; margin-top: 8px; }
 .date .quand { display: block; font-weight: 700; font-size: 18px; }
+.date .heure { display: block; font-weight: 700; font-size: 18px; white-space: nowrap; }
 
 /* ---------- Pied : sol en briques ---------- */
 footer { margin-top: auto; }

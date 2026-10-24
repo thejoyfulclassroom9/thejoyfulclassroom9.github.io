@@ -73,15 +73,15 @@ var PROJET = {
     { niveau: "6e", date: "2026-10-26", heure: "11 h 30" }
   ],
   fiches: [
-    { titre: "Les 10 essences d'arbres", lien: "essences-arbres.pdf", niveaux: "3e à 6e année",
+    { icone: "arbre", titre: "Les 10 essences d'arbres", lien: "essences-arbres.pdf", niveaux: "3e à 6e année",
       description: "Feuilles, écorces, fruits, qui les mange et à quoi ils servent." },
-    { titre: "La verge d'or", lien: "verge-dor.pdf", niveaux: "3e à 6e année",
+    { icone: "verge-dor", titre: "La verge d'or", lien: "verge-dor.pdf", niveaux: "3e à 6e année",
       description: "Sa carte d'identité, ses alliés, le mythe du rhume des foins et le défi de la galle!" }
   ]
 };
 
 var ACTIVITES = [
-  { titre: "Défi des essences d'arbres", niveaux: "3e à 6e année", date: "2026-09-27",
+  { icone: "defi", titre: "Défi des essences d'arbres", niveaux: "3e à 6e année", date: "2026-09-27",
     lien: "https://script.google.com/macros/s/AKfycbwBoba_kfofpXw3g_yowKZV_xkmOaLPR7cN2TtgPImqyHQHeQxLWDqhCbAi-2AgjlAp/exec",
     description: "Entre les réponses de ton équipe pour les 7 stations et découvre ton score." }
 ];
@@ -104,7 +104,7 @@ var SITES = [
 ];
 
 var SORTIES = [
-  { titre: "Espace pour la vie", lien: "https://espacepourlavie.ca/",
+  { icone: "serre", titre: "Espace pour la vie", lien: "https://espacepourlavie.ca/",
     description: "Le Biodôme, l'Insectarium, le Jardin botanique et le Planétarium de Montréal. Leur site regorge aussi d'informations gratuites sur la nature." }
 ];
 /* ========================================================= */
@@ -122,7 +122,7 @@ document.getElementById("projetTexte").textContent = PROJET.texte;
     var etat = dt < auj ? "Projet commencé le" : dt.getTime() === auj.getTime() ? "Début du projet : aujourd'hui!" : "Début du projet";
     var quand = JOURS[dt.getDay()] + " " + dt.getDate() + " " + MOIS[dt.getMonth()];
     return '<div class="date" style="--c:' + COULEURS[d.niveau] + '"><span class="niv">' + esc(d.niveau) + ' année</span>' +
-      '<span class="etat">' + etat + '</span><span class="quand">' + esc(quand.charAt(0).toUpperCase() + quand.slice(1)) + ', ' + esc(d.heure) + '</span></div>';
+      '<span class="etat">' + etat + '</span><span class="quand">' + esc(quand.charAt(0).toUpperCase() + quand.slice(1)) + '</span><span class="heure">' + esc(d.heure) + '</span></div>';
   }).join("");
 })();
 document.getElementById("projetFiches").innerHTML = PROJET.fiches.map(carte).join("");
