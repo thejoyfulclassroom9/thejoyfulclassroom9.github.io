@@ -18,12 +18,18 @@ var APPS = {
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec" },
   prof:    { titre: "Le portail : interface prof",
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=prof" },
+  arrondir: { titre: "Arrondis!",
+             url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=arrondir" },
+  arrondirprof: { titre: "Arrondis! : interface prof",
+             url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=arrondirprof" },
   arbres:  { titre: "Défi des essences d’arbres",
              url: "https://script.google.com/macros/s/AKfycbwBoba_kfofpXw3g_yowKZV_xkmOaLPR7cN2TtgPImqyHQHeQxLWDqhCbAi-2AgjlAp/exec" }
 };
 var app = APPS[location.hash.slice(1)];
 if (!app) { location.replace("index.html"); }
 else { document.title = app.titre; document.getElementById("cadre").src = app.url; }
+/* Passer d’une app à l’autre (ex. : du portail au jeu) recharge la page */
+window.addEventListener("hashchange", function () { location.reload(); });
 </script>
 </body>
 </html>
