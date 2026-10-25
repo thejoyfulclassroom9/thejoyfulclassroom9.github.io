@@ -81,7 +81,13 @@ const FICHES = [
   { fichier:"superieur-inferieur.png", titre:"Supérieur ou inférieur?", categorie:"Comparer",
     mots:["supérieur","supérieur à","inférieur","inférieur à","plus grand que","plus petit que",">","<","comparer","symbole","crocodile","bouche"] },
   { fichier:"arrondir-dizaine.png", titre:"Arrondir à la dizaine près", categorie:"Estimer",
-    mots:["arrondir","arrondi","arrondis","dizaine près","dizaine la plus proche","estimer","estimation","environ","approximation","unités"] }
+    mots:["arrondir","arrondi","arrondis","dizaine près","dizaine la plus proche","estimer","estimation","environ","approximation","unités"] },
+  { fichier:"triangles.png", titre:"Les triangles", categorie:"Géométrie",
+    mots:["triangle","triangles","isocèle","équilatéral","scalène","triangle rectangle","angle droit","côtés égaux","3 côtés"] },
+  { fichier:"quadrilateres.png", titre:"Les quadrilatères", categorie:"Géométrie",
+    mots:["quadrilatère","quadrilatères","carré","rectangle","losange","parallélogramme","trapèze","4 côtés","parallèles","côtés parallèles","angle droit"] },
+  { fichier:"axe-symetrie.png", titre:"Axe de symétrie", categorie:"Géométrie",
+    mots:["axe","axe de symétrie","symétrie","symétrique","plier","pliage","miroir","reflet","moitié","diagonale"] }
 ];
 
 const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g," ").trim();
