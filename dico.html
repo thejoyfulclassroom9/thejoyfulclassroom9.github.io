@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="icones/portail.png">
+<title>Dico math avec M. Stéphane</title>
+<style>
+.tete img.castor { width: auto; height: 130px; }
+.recherche { display: block; width: 100%; font: 700 22px var(--lecture); padding: 16px 20px; color: var(--nuit); }
+.recherche::placeholder { color: #777; }
+.cats { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 26px; }
+.cats button { font-family: var(--pixel); font-size: 11px; padding: 10px 12px; cursor: pointer; background: var(--blanc); color: var(--nuit); border: 3px solid var(--nuit); }
+.cats button[aria-pressed="true"] { background: var(--or); }
+.fiche { display: block; padding: 0; text-align: left; cursor: pointer; font: inherit; color: var(--nuit); }
+.fiche:hover { background: #FFF6D6; }
+.fiche:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--nuit); }
+.fiche img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 4px solid var(--nuit); }
+.fiche span { display: block; padding: 12px 16px 14px; }
+.fiche b { display: block; font-family: var(--pixel); font-weight: 400; font-size: 12px; line-height: 1.7; margin-bottom: 4px; }
+.fiche small { font-size: 15px; font-weight: 700; color: var(--texte-doux); }
+.introuvable { display: none; align-items: center; gap: 18px; padding: 18px 22px; font-weight: 700; }
+.introuvable.on { display: flex; }
+.introuvable img { height: 90px; width: auto; }
+dialog { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1600px); }
+dialog::backdrop { background: rgba(0, 0, 0, .85); }
+dialog img { display: block; max-width: 100%; max-height: 84vh; height: auto; border: 4px solid var(--nuit); }
+.fermer { display: block; margin: 14px auto 0; font-family: var(--pixel); font-size: 12px; padding: 12px 16px; cursor: pointer; background: var(--or); color: var(--nuit); border: 3px solid var(--nuit); }
+</style>
+</head>
+<body>
+<header class="barre"><div class="int">
+  <a class="accueil" href="index.html">Accueil</a>
+  <nav aria-label="Pages">
+    <a href="math.html">Math</a>
+    <a href="sciences.html">Sciences</a>
+    <a class="portail" data-portail href="#">Le portail</a>
+  </nav>
+</div></header>
+<div class="tete">
+  <img class="castor" src="dico/castor-jaune.png" alt="Le castor de la classe se pose une question">
+  <div><h1>Dico math</h1><p>Un mot te bloque? Écris-le ici, le castor va t’aider à le comprendre.</p></div>
+</div>
+
+<main>
+  <label for="q" class="section-titre">Chercher un mot</label>
+  <input id="q" class="bloc recherche" type="search" autocomplete="off" placeholder="Écris un mot… (ex. : arrondir)">
+  <div class="cats" id="cats"></div>
+  <div class="bloc introuvable" id="vide">
+    <img src="dico/castor-jaune.png" alt="">
+    <p>Je ne connais pas encore ce mot! Essaie un autre mot ou demande à M. Stéphane.</p>
+  </div>
+  <div class="grille" id="grille"></div>
+</main>
+
+<dialog id="zoom">
+  <img id="zoomImg" src="" alt="">
+  <button class="fermer" id="fermer">Fermer</button>
+</dialog>
+
+<footer>
+  <p class="pied-texte">M. Stéphane, École Marie-Anne, <span id="annee"></span></p>
+  <div class="sol" aria-hidden="true"></div>
+</footer>
+<script src="site.js"></script>
+<script>
+/* ============================================================
+   LISTE DES FICHES — pour ajouter une fiche :
+   1. Dépose le PNG dans le dossier « dico »
+   2. Copie une ligne et change : fichier, titre, categorie, mots
+   ============================================================ */
+const FICHES = [
+  { fichier:"chiffre-nombre.png", titre:"Chiffre ou nombre?", categorie:"Nombres",
+    mots:["chiffre","chiffres","nombre","nombres","symbole","quantité","0 à 9","combien de chiffres"] },
+  { fichier:"pair-impair.png", titre:"Pair ou impair?", categorie:"Nombres",
+    mots:["pair","impair","paire","pairs","impairs","partager en 2","reste","divisible par 2","moitié"] },
+  { fichier:"superieur-inferieur.png", titre:"Supérieur ou inférieur?", categorie:"Comparer",
+    mots:["supérieur","supérieur à","inférieur","inférieur à","plus grand que","plus petit que",">","<","comparer","symbole","crocodile","bouche"] },
+  { fichier:"arrondir-dizaine.png", titre:"Arrondir à la dizaine près", categorie:"Estimer",
+    mots:["arrondir","arrondi","arrondis","dizaine près","dizaine la plus proche","estimer","estimation","environ","approximation","unités"] }
+];
+
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’']/g," ").trim();
+function lev(a,b){
+  if(a===b) return 0;
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){
+    const cur=[i];
+    for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    prev=cur;
+  }
+  return prev[n];
+}
+function score(fiche,q){
+  const qn=norm(q); if(!qn) return 1;
+  const textes=[fiche.titre,...fiche.mots].map(norm);
+  if(textes.some(t=>t===qn)) return 100;
+  if(textes.some(t=>t.startsWith(qn))) return 80;
+  if(textes.some(t=>t.includes(qn))) return 60;
+  const motsQ=qn.split(/\s+/).filter(Boolean);
+  const motsF=textes.flatMap(t=>t.split(/\s+/));
+  let total=0;
+  for(const w of motsQ){
+    const tol=w.length<=2?0:(w.length<=5?1:2);
+    let best=99;
+    for(const f of motsF){ best=Math.min(best,lev(w,f), f.startsWith(w)&&w.length>=3?0:99); }
+    if(best>tol) return 0;          // chaque mot cherché doit trouver une correspondance
+    total+=(tol+1-best)*10;
+  }
+  return total;
+}
+
+const grille=document.getElementById("grille"), vide=document.getElementById("vide"),
+      q=document.getElementById("q"), cats=document.getElementById("cats");
+let categorie="Toutes";
+
+const listeCats=["Toutes",...new Set(FICHES.map(f=>f.categorie))];
+listeCats.forEach(c=>{
+  const b=document.createElement("button"); b.type="button"; b.textContent=c;
+  b.setAttribute("aria-pressed",c===categorie);
+  b.onclick=()=>{categorie=c;[...cats.children].forEach(x=>x.setAttribute("aria-pressed",x===b));afficher();};
+  cats.appendChild(b);
+});
+
+function afficher(){
+  const res=FICHES.map(f=>({f,s:score(f,q.value)}))
+    .filter(r=>r.s>0 && (categorie==="Toutes"||r.f.categorie===categorie))
+    .sort((a,b)=>b.s-a.s || a.f.titre.localeCompare(b.f.titre,"fr"));
+  grille.innerHTML="";
+  res.forEach(({f})=>{
+    const c=document.createElement("button"); c.className="bloc fiche"; c.type="button";
+    c.innerHTML=`<img src="dico/${f.fichier}" alt="" loading="lazy"><span><b>${f.titre}</b><small>${f.categorie}</small></span>`;
+    c.onclick=()=>ouvrir(f);
+    grille.appendChild(c);
+  });
+  vide.classList.toggle("on",res.length===0);
+}
+
+const zoom=document.getElementById("zoom"), zoomImg=document.getElementById("zoomImg");
+function ouvrir(f){ zoomImg.src="dico/"+f.fichier; zoomImg.alt="Fiche : "+f.titre; zoom.showModal(); }
+document.getElementById("fermer").onclick=()=>zoom.close();
+zoom.addEventListener("click",e=>{ if(e.target===zoom) zoom.close(); });
+
+q.addEventListener("input",afficher);
+afficher();
+</script>
+</body>
+</html>
