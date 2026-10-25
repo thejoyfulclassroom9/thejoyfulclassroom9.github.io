@@ -7,9 +7,12 @@
 <style>
   html, body { margin: 0; height: 100%; background: #e8e8e8; }
   iframe { display: block; width: 100%; height: 100%; border: 0; }
+  #plein { position: fixed; right: 14px; bottom: 14px; z-index: 5; font: 12px 'Courier New', monospace; font-weight: bold;
+           background: #F8B800; border: 3px solid #000; box-shadow: 3px 3px 0 #000; padding: 8px 10px; cursor: pointer; }
 </style>
 </head>
 <body>
+<button id="plein" hidden title="Plein écran">⛶ Plein écran</button>
 <iframe id="cadre" title="Application" allow="clipboard-write; fullscreen"></iframe>
 <script>
 /* Les apps du site : ajoute une ligne ici pour chaque nouvelle app Apps Script */
@@ -18,7 +21,7 @@ var APPS = {
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec" },
   prof:    { titre: "Le portail : interface prof",
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=prof" },
-  arrondir: { titre: "Arrondis!",
+  arrondir: { titre: "Arrondis!", plein: true,
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=arrondir" },
   arrondirprof: { titre: "Arrondis! : interface prof",
              url: "https://script.google.com/macros/s/AKfycbyxVpgkzkwHmz1nH80SljjPJ1fe6kfzoZaVMC_vlCwfJsPSxbk_VPe_KhFMmsNMMEipMQ/exec?page=arrondirprof" },
@@ -28,6 +31,15 @@ var APPS = {
 var app = APPS[location.hash.slice(1)];
 if (!app) { location.replace("index.html"); }
 else { document.title = app.titre; document.getElementById("cadre").src = app.url; }
+/* Bouton plein écran pour les jeux */
+var plein = document.getElementById("plein");
+if (app && app.plein && document.documentElement.requestFullscreen) {
+  plein.hidden = false;
+  plein.onclick = function () {
+    if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+  };
+  document.addEventListener("fullscreenchange", function () { plein.textContent = document.fullscreenElement ? "Quitter le plein écran" : "⛶ Plein écran"; });
+}
 /* Passer d’une app à l’autre (ex. : du portail au jeu) recharge la page */
 window.addEventListener("hashchange", function () { location.reload(); });
 </script>
