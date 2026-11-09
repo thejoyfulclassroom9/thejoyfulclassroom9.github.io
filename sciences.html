@@ -27,6 +27,9 @@ button.date .heure { margin-bottom: 10px; }
   background: var(--or); color: var(--nuit); border: 4px solid var(--nuit); padding: 12px 16px; cursor: pointer;
   box-shadow: 4px 4px 0 var(--blanc); }
 .consignes .sortir:hover { background: var(--blanc); }
+/* Plusieurs projets + note */
+.projet + .projet { margin-top: 24px; }
+.projet .note { margin: 14px 0 0; background: var(--or); border: 4px solid var(--nuit); padding: 10px 14px; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -40,18 +43,13 @@ button.date .heure { margin-bottom: 10px; }
 </div></header>
 <div class="tete">
   <img class="pix" src="icones/eprouvette.png" alt="" width="88" height="88">
-  <div><h1>Sciences</h1><p>Le projet en cours, des défis et des découvertes.</p></div>
+  <div><h1>Sciences</h1><p>Les projets en cours, des défis et des découvertes.</p></div>
 </div>
 
 <main>
   <section aria-labelledby="t-projet">
-    <h2 id="t-projet" class="section-titre">Le projet en cours</h2>
-    <div class="bloc projet">
-      <h3 id="projetTitre"></h3>
-      <p id="projetTexte"></p>
-      <div class="dates" id="projetDates"></div>
-      <div class="grille" id="projetFiches"></div>
-    </div>
+    <h2 id="t-projet" class="section-titre">Les projets en cours</h2>
+    <div id="projets"></div>
   </section>
 
   <section aria-labelledby="t-act">
@@ -86,24 +84,44 @@ button.date .heure { margin-bottom: 10px; }
 /* =========================================================
    CE QU'IL FAUT MODIFIER POUR METTRE LA PAGE À JOUR
    ========================================================= */
-var PROJET = {
-  titre: "Les essences d'arbres et la verge d'or",
-  texte: "Notre projet repose sur deux fiches à conserver : les 10 essences d'arbres et la verge d'or. Garde-les précieusement!",
-  // date : AAAA-MM-JJ
-  debuts: [
-    // consignes : image affichée en plein écran quand on clique sur le rectangle (laisser "" si aucune)
-    { niveau: "3e", date: "2026-10-23", heure: "11 h 00", consignes: "consignes/consignes-3e-mon-arbre-illustre.png" },
-    { niveau: "4e", date: "2026-10-26", heure: "14 h 10", consignes: "consignes/consignes-4e-cartes-collection.png" },
-    { niveau: "5e", date: "2026-10-27", heure: "14 h 10", consignes: "consignes/consignes-5e-devine-qui-je-suis.png" },
-    { niveau: "6e", date: "2026-10-26", heure: "11 h 30", consignes: "consignes/consignes-6e-carnet-naturaliste.png" }
-  ],
-  fiches: [
-    { icone: "arbre", titre: "Les 10 essences d'arbres", lien: "essences-arbres.pdf", niveaux: "3e à 6e année",
-      description: "Feuilles, écorces, fruits, qui les mange et à quoi ils servent." },
-    { icone: "verge-dor", titre: "La verge d'or", lien: "verge-dor.pdf", niveaux: "3e à 6e année",
-      description: "Sa carte d'identité, ses alliés, le mythe du rhume des foins et le défi de la galle!" }
-  ]
-};
+// Le premier projet de la liste s'affiche en haut.
+// date : AAAA-MM-JJ (laisser "" si la date n'est pas encore connue)
+// consignes : image affichée en plein écran quand on clique sur le rectangle (laisser "" si aucune)
+// note : message mis en évidence sous le texte (laisser "" si aucun)
+var PROJETS = [
+  {
+    titre: "Les minéraux",
+    texte: "Choisis ton minéral et présente-le à la classe, seul ou en équipe de 2. Ensemble, on va reconstruire l'échelle de Mohs, du talc jusqu'au diamant!",
+    note: "",
+    debuts: [
+      { niveau: "3e", date: "", heure: "", consignes: "consignes/consignes-mineraux-3e.png" },
+      { niveau: "4e", date: "", heure: "", consignes: "consignes/consignes-mineraux-4e.png" },
+      { niveau: "5e", date: "", heure: "", consignes: "consignes/consignes-mineraux-5e.png" },
+      { niveau: "6e", date: "", heure: "", consignes: "consignes/consignes-mineraux-6e.png" }
+    ],
+    fiches: [
+      { icone: "cristal", titre: "Les textes des minéraux", lien: "textes-mineraux-3e-4e.pdf", niveaux: "3e et 4e année", date: "2026-11-09",
+        description: "Un texte par minéral : comment le reconnaître, sa dureté, où le trouver et à quoi il sert." }
+    ]
+  },
+  {
+    titre: "Les essences d'arbres et la verge d'or",
+    texte: "Notre projet repose sur deux fiches à conserver : les 10 essences d'arbres et la verge d'or. Garde-les précieusement!",
+    note: "Tu n'as pas terminé? Tu peux finir quand tu as du temps en classe.",
+    debuts: [
+      { niveau: "3e", date: "2026-10-23", heure: "11 h 00", consignes: "consignes/consignes-3e-mon-arbre-illustre.png" },
+      { niveau: "4e", date: "2026-10-26", heure: "14 h 10", consignes: "consignes/consignes-4e-cartes-collection.png" },
+      { niveau: "5e", date: "2026-10-27", heure: "14 h 10", consignes: "consignes/consignes-5e-devine-qui-je-suis.png" },
+      { niveau: "6e", date: "2026-10-26", heure: "11 h 30", consignes: "consignes/consignes-6e-carnet-naturaliste.png" }
+    ],
+    fiches: [
+      { icone: "arbre", titre: "Les 10 essences d'arbres", lien: "essences-arbres.pdf", niveaux: "3e à 6e année",
+        description: "Feuilles, écorces, fruits, qui les mange et à quoi ils servent." },
+      { icone: "verge-dor", titre: "La verge d'or", lien: "verge-dor.pdf", niveaux: "3e à 6e année",
+        description: "Sa carte d'identité, ses alliés, le mythe du rhume des foins et le défi de la galle!" }
+    ]
+  }
+];
 
 var ACTIVITES = [
   { icone: "defi", titre: "Défi des essences d'arbres", niveaux: "3e à 6e année", date: "2026-09-27",
@@ -138,21 +156,30 @@ var COULEURS = { "3e": "var(--n3)", "4e": "var(--n4)", "5e": "var(--n5)", "6e": 
 var MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 var JOURS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 
-document.getElementById("projetTitre").textContent = PROJET.titre;
-document.getElementById("projetTexte").textContent = PROJET.texte;
 (function () {
   var auj = new Date(); auj.setHours(0, 0, 0, 0);
-  document.getElementById("projetDates").innerHTML = PROJET.debuts.map(function (d, i) {
-    var p = d.date.split("-").map(Number), dt = new Date(p[0], p[1] - 1, p[2]);
-    var etat = dt < auj ? "Projet commencé le" : dt.getTime() === auj.getTime() ? "Début du projet : aujourd'hui!" : "Début du projet";
-    var quand = JOURS[dt.getDay()] + " " + dt.getDate() + " " + MOIS[dt.getMonth()];
+  function rectangle(d, p, i) {
+    var etat, quand;
+    if (d.date) {
+      var x = d.date.split("-").map(Number), dt = new Date(x[0], x[1] - 1, x[2]);
+      etat = dt < auj ? "Projet commencé le" : dt.getTime() === auj.getTime() ? "Début du projet : aujourd'hui!" : "Début du projet";
+      quand = JOURS[dt.getDay()] + " " + dt.getDate() + " " + MOIS[dt.getMonth()];
+      quand = quand.charAt(0).toUpperCase() + quand.slice(1);
+    } else { etat = "Début du projet"; quand = "Date à venir"; }
     var contenu = '<span class="niv">' + esc(d.niveau) + ' année</span>' +
-      '<span class="etat">' + etat + '</span><span class="quand">' + esc(quand.charAt(0).toUpperCase() + quand.slice(1)) + '</span><span class="heure">' + esc(d.heure) + '</span>';
+      '<span class="etat">' + etat + '</span><span class="quand">' + esc(quand) + '</span>' +
+      (d.heure ? '<span class="heure">' + esc(d.heure) + '</span>' : '');
     if (d.consignes) {
-      return '<button type="button" class="date" data-i="' + i + '" style="--c:' + COULEURS[d.niveau] + '">' + contenu +
+      return '<button type="button" class="date" data-p="' + p + '" data-i="' + i + '" style="--c:' + COULEURS[d.niveau] + '">' + contenu +
         '<span class="voir">▶ Consignes</span></button>';
     }
     return '<div class="date" style="--c:' + COULEURS[d.niveau] + '">' + contenu + '</div>';
+  }
+  document.getElementById("projets").innerHTML = PROJETS.map(function (pr, p) {
+    return '<div class="bloc projet"><h3>' + esc(pr.titre) + '</h3><p>' + esc(pr.texte) + '</p>' +
+      (pr.note ? '<p class="note">' + esc(pr.note) + '</p>' : '') +
+      '<div class="dates">' + pr.debuts.map(function (d, i) { return rectangle(d, p, i); }).join("") + '</div>' +
+      '<div class="grille">' + pr.fiches.map(carte).join("") + '</div></div>';
   }).join("");
 })();
 /* Consignes en plein écran */
@@ -175,15 +202,14 @@ document.getElementById("projetTexte").textContent = PROJET.texte;
     if (document.fullscreenElement) { document.exitFullscreen().catch(function () {}); }
     if (retour) retour.focus();
   }
-  document.getElementById("projetDates").addEventListener("click", function (e) {
+  document.getElementById("projets").addEventListener("click", function (e) {
     var b = e.target.closest("button.date");
-    if (b) ouvrir(PROJET.debuts[+b.dataset.i], b);
+    if (b) ouvrir(PROJETS[+b.dataset.p].debuts[+b.dataset.i], b);
   });
   sortir.addEventListener("click", fermer);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fermer(); });
   document.addEventListener("fullscreenchange", function () { if (!document.fullscreenElement) fermer(); });
 })();
-document.getElementById("projetFiches").innerHTML = PROJET.fiches.map(carte).join("");
 remplir("grilleActivites", ACTIVITES, "D'autres activités arrivent bientôt!");
 document.getElementById("grilleSites").innerHTML = SITES.map(carte).join("");
 document.getElementById("grilleSorties").innerHTML = SORTIES.map(carte).join("");
