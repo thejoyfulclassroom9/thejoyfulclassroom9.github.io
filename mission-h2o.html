@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission H2O · 6e année</title>
+<link rel="icon" href="icones/portail.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0f1a2e;--panel:#fdf8ec;--ink:#1c2233;--blue:#2f7fd6;--sky:#7fc3ff;--pink:#EFA3C0;--gold:#ffcf3f;--green:#3fbf6f;--red:#e0475a;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 'Atkinson Hyperlegible',system-ui,sans-serif;
+       background-image:radial-gradient(#1d2d4d 1px,transparent 1px);background-size:16px 16px}
+  .wrap{max-width:980px;margin:0 auto;padding:24px 16px 60px}
+  .px{font-family:'Press Start 2P',monospace;letter-spacing:1px}
+  header{background:var(--blue);border:4px solid #000;box-shadow:6px 6px 0 #000;padding:22px;color:#fff;text-align:center}
+  header h1{margin:0 0 10px;font-size:28px;line-height:1.3}
+  header p{margin:0;font-size:17px}
+  .alerte{margin:22px 0;background:var(--gold);border:4px solid #000;box-shadow:6px 6px 0 #000;padding:14px 18px;font-weight:700}
+  .alerte .px{font-size:12px;display:block;margin-bottom:6px}
+  section{background:var(--panel);border:4px solid #000;box-shadow:6px 6px 0 #000;padding:20px;margin:26px 0}
+  h2{margin:0 0 14px;font-size:16px;line-height:1.5}
+  h2 .lvl{background:var(--pink);border:3px solid #000;padding:4px 8px;margin-right:8px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+  .card{background:#fff;border:3px solid #000;padding:12px 14px}
+  .card .ico{font-size:34px;line-height:1}
+  .card h3{margin:6px 0 4px;font-family:'Press Start 2P',monospace;font-size:11px;line-height:1.6;color:var(--blue)}
+  .card p{margin:0;font-size:16px}
+  .card .ex{margin-top:6px;font-size:15px;color:#555}
+  .q{background:#fff;border:3px solid #000;padding:12px 14px;margin:12px 0}
+  .q.ok{background:#e4f8ea;border-color:var(--green)}
+  .q p{margin:0 0 8px;font-weight:700}
+  .q button{font:inherit;font-size:16px;margin:4px 6px 4px 0;padding:7px 12px;border:3px solid #000;background:#f1f1f1;cursor:pointer;box-shadow:3px 3px 0 #000}
+  .q button:hover{background:var(--sky)}
+  .q button.bad{background:#ffd5da;text-decoration:line-through}
+  .q button.good{background:var(--green);color:#fff}
+  .q button:disabled{cursor:default}
+  .fb{font-size:15px;min-height:20px}
+  .code{display:flex;gap:8px;justify-content:center;margin:18px 0 6px;flex-wrap:wrap}
+  .code span{width:46px;height:56px;border:3px solid #000;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:20px}
+  .code span.on{background:var(--gold)}
+  .bravo{display:none;text-align:center;background:var(--green);color:#fff;border:3px solid #000;padding:12px;margin-top:12px;font-weight:700}
+  ol li,ul li{margin:6px 0}
+  .check li{list-style:none;margin-left:-20px}
+  .check li::before{content:"□ ";font-weight:700}
+  .bonus{background:#eef6ff;border:3px dashed var(--blue);padding:12px 16px;margin-top:16px}
+  .video{position:relative;padding-top:56.25%;border:4px solid #000;box-shadow:5px 5px 0 #000;margin:10px 0 6px;background:#000}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .small{font-size:15px;color:#555;margin-top:6px}
+  footer{text-align:center;color:#9fb3d6;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1 class="px">MISSION H2O</h1>
+  <p>Le voyage d'une goutte d'eau · Science 6<sup>e</sup> année</p>
+</header>
+
+<div class="alerte">
+  <span class="px">⚠ AVANT DE COMMENCER</span>
+  Ta présentation sur ton minéral est-elle <u>complètement terminée</u>? Sinon, c'est ta priorité! Les présentations ont lieu lundi prochain.
+</div>
+
+<section>
+  <h2 class="px"><span class="lvl">1</span>Regarde et apprends</h2>
+  <p><b>Commence par la vidéo</b> au complet. Mets tes écouteurs!</p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/tZ7s_WrcsDs?rel=0" title="Le cycle de l'eau" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+  <p class="small">La vidéo ne s'affiche pas? <a href="https://www.youtube.com/watch?v=tZ7s_WrcsDs" target="_blank" rel="noopener">Ouvre-la dans YouTube</a>.</p>
+  <p>Ensuite, lis les cartes. L'eau de la Terre ne disparaît jamais : elle voyage sans arrêt entre le ciel, le sol, les lacs et les océans. C'est le <b>cycle de l'eau</b>. Le <b>Soleil</b> lui donne son énergie. Lis les 7 cartes attentivement : tu en auras besoin pour la suite.</p>
+  <div class="cards">
+    <div class="card"><div class="ico">☀️</div><h3>ÉVAPORATION</h3>
+      <p>Chauffée par le Soleil, l'eau liquide des lacs, des rivières et des océans se transforme en <b>vapeur d'eau</b>, un gaz invisible qui monte dans l'air.</p>
+      <p class="ex">Ex. : une flaque disparaît après une journée ensoleillée.</p></div>
+    <div class="card"><div class="ico">🌳</div><h3>TRANSPIRATION</h3>
+      <p>Les plantes puisent l'eau du sol avec leurs racines, puis en relâchent une partie dans l'air sous forme de <b>vapeur</b>, par leurs feuilles.</p>
+      <p class="ex">Ex. : les érables de notre boisé, en été.</p></div>
+    <div class="card"><div class="ico">☁️</div><h3>CONDENSATION</h3>
+      <p>En montant, la vapeur d'eau <b>refroidit</b>. Elle redevient de minuscules gouttelettes d'eau liquide (ou de petits cristaux de glace). Ensemble, elles forment les <b>nuages</b>.</p>
+      <p class="ex">Ex. : la buée sur une vitre froide.</p></div>
+    <div class="card"><div class="ico">🌨️</div><h3>PRÉCIPITATIONS</h3>
+      <p>Quand les gouttelettes s'unissent et deviennent trop lourdes, elles tombent : <b>pluie, neige, grêle</b> ou verglas.</p>
+      <p class="ex">Ex. : la neige qui recouvre Rawdon l'hiver.</p></div>
+    <div class="card"><div class="ico">〰️</div><h3>RUISSELLEMENT</h3>
+      <p>L'eau qui tombe <b>coule à la surface</b> du sol, en suivant les pentes, jusqu'aux ruisseaux, aux rivières et aux lacs.</p>
+      <p class="ex">Ex. : l'eau de pluie qui descend vers la rivière Ouareau.</p></div>
+    <div class="card"><div class="ico">⬇️</div><h3>INFILTRATION</h3>
+      <p>Une partie de l'eau <b>pénètre dans le sol</b>. Elle peut descendre jusqu'à une <b>nappe d'eau souterraine</b>, où l'on puise l'eau des puits.</p>
+      <p class="ex">Ex. : le sol de la forêt qui boit l'eau comme une éponge.</p></div>
+    <div class="card"><div class="ico">🏞️</div><h3>ACCUMULATION</h3>
+      <p>L'eau se <b>rassemble et attend</b> dans les océans, les lacs, les rivières, les glaciers, la neige au sol et les nappes souterraines... avant de repartir en voyage!</p>
+      <p class="ex">Ex. : les lacs de la région de Rawdon.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="px"><span class="lvl">2</span>Déverrouille le code</h2>
+  <p>Chaque bonne réponse te donne une lettre. Trouve les 7 lettres et <b>écris le code secret</b> en haut de ta feuille pour l'étape 3.</p>
+  <div id="quiz"></div>
+  <div class="code" id="code"></div>
+  <div class="bravo" id="bravo">BRAVO! Écris le code en haut de ta feuille, puis passe à l'étape 3.</div>
+</section>
+
+<section>
+  <h2 class="px"><span class="lvl">3</span>Le voyage d'une goutte à Rawdon</h2>
+  <p>Sur une <b>feuille blanche</b> (prends-en une dans le local), dessine un <b>schéma</b> du cycle de l'eau dans <b>notre région</b>. Ton dessin doit montrer :</p>
+  <ul class="check">
+    <li>le code secret, ton nom et ton numéro en haut de la feuille;</li>
+    <li>le Soleil, des nuages, une montagne ou une colline, la forêt, un lac et la rivière Ouareau (l'école aussi, si tu veux!);</li>
+    <li>des <b>flèches</b> qui montrent le chemin de l'eau;</li>
+    <li>les <b>7 étapes</b> écrites au bon endroit : évaporation, transpiration, condensation, précipitations, ruissellement, infiltration, accumulation;</li>
+    <li>pour chaque étape, <b>une courte phrase</b> qui explique ce qui arrive à l'eau, dans tes mots;</li>
+    <li>des couleurs pour que ce soit clair et beau.</li>
+  </ul>
+  <p>Quand tu as fini, remets ta feuille à l'adulte dans la classe.</p>
+  <div class="bonus">
+    <b class="px" style="font-size:11px">★ DÉFI EXPERT (au verso)</b>
+    <ol>
+      <li>Une flaque d'eau disparaît plus vite au soleil qu'à l'ombre. Explique pourquoi.</li>
+      <li>Le matin, ton verre de lait froid est couvert de petites gouttes à l'extérieur. D'où vient cette eau? Quelle étape du cycle est-ce?</li>
+      <li>L'hiver, la neige reste accumulée au sol pendant des mois. Que lui arrive-t-il au printemps? Nomme au moins 2 étapes du cycle qu'elle peut suivre ensuite.</li>
+      <li><i>Selon la vidéo</i> : environ quel pourcentage de l'eau de la Terre est de l'eau <b>douce</b>? Où se trouve la plus grande partie de cette eau douce?</li>
+      <li><i>Selon la vidéo</i> : qu'est-ce que la <b>sublimation</b>?</li>
+    </ol>
+  </div>
+</section>
+
+<footer class="px" style="font-size:10px">École Marie-Anne · Science 6e</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"Quelle est la source d'énergie qui fait fonctionner le cycle de l'eau?", c:["La Lune","Le Soleil","Le vent","Les volcans"], a:1, l:"O", h:"Pense à ce qui chauffe l'eau des lacs."},
+  {q:"L'eau liquide d'un lac se transforme en vapeur et monte dans l'air. Comment s'appelle cette étape?", c:["La condensation","L'infiltration","L'évaporation","Le ruissellement"], a:2, l:"U", h:"Relis la carte avec le Soleil."},
+  {q:"En montant, la vapeur d'eau refroidit et forme de minuscules gouttelettes qui deviennent des nuages. C'est...", c:["la condensation","la transpiration","l'accumulation","l'évaporation"], a:0, l:"A", h:"C'est aussi ce qui fait la buée sur une vitre froide."},
+  {q:"Un érable relâche de la vapeur d'eau par ses feuilles. C'est...", c:["l'infiltration","la transpiration","les précipitations","le ruissellement"], a:1, l:"R", h:"Les plantes aussi « suent » un peu!"},
+  {q:"En novembre à Rawdon, il tombe de la pluie et de la neige. Ce sont des...", c:["condensations","accumulations","évaporations","précipitations"], a:3, l:"E", h:"Ce qui tombe du ciel."},
+  {q:"Après un orage, l'eau coule à la surface du sol jusqu'à la rivière Ouareau. C'est...", c:["le ruissellement","l'infiltration","la transpiration","la condensation"], a:0, l:"A", h:"L'eau coule SUR le sol."},
+  {q:"L'eau de pluie pénètre dans le sol et rejoint une nappe d'eau souterraine. C'est...", c:["l'évaporation","l'accumulation","l'infiltration","le ruissellement"], a:2, l:"U", h:"L'eau entre DANS le sol."}
+];
+const quiz=document.getElementById('quiz'), code=document.getElementById('code');
+let found=0;
+QUESTIONS.forEach((Q,i)=>{
+  const box=document.createElement('div'); box.className='q';
+  box.innerHTML='<p>'+(i+1)+'. '+Q.q+'</p>';
+  const fb=document.createElement('div'); fb.className='fb';
+  Q.c.forEach((txt,j)=>{
+    const b=document.createElement('button'); b.textContent=txt;
+    b.onclick=()=>{
+      if(j===Q.a){
+        b.classList.add('good'); box.classList.add('ok');
+        box.querySelectorAll('button').forEach(x=>x.disabled=true);
+        fb.textContent='✔ Bonne réponse! Lettre débloquée : '+Q.l;
+        const s=code.children[i]; s.textContent=Q.l; s.classList.add('on');
+        found++; if(found===QUESTIONS.length) document.getElementById('bravo').style.display='block';
+      }else{
+        b.classList.add('bad'); b.disabled=true;
+        fb.textContent='✘ Pas tout à fait. Indice : '+Q.h;
+      }
+    };
+    box.appendChild(b);
+  });
+  box.appendChild(fb); quiz.appendChild(box);
+  const s=document.createElement('span'); s.textContent='?'; code.appendChild(s);
+});
+</script>
+</body>
+</html>
