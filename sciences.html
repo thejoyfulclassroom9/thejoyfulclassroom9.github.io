@@ -57,6 +57,12 @@ button.date .heure { margin-bottom: 10px; }
     <div class="grille" id="grilleActivites"></div>
   </section>
 
+  <section aria-labelledby="t-option">
+    <h2 id="t-option" class="section-titre">Option science</h2>
+    <p class="section-intro">Pour les élèves du groupe d'Option science.</p>
+    <div class="grille" id="grilleOption"></div>
+  </section>
+
   <section aria-labelledby="t-sites">
     <h2 id="t-sites" class="section-titre">Sites à explorer</h2>
     <p class="section-intro">Tous gratuits. Ils s'ouvrent dans un nouvel onglet, le site de la classe reste ouvert.</p>
@@ -130,6 +136,12 @@ var ACTIVITES = [
   { icone: "defi", titre: "Défi des essences d'arbres", niveaux: "3e à 6e année", date: "2026-09-27",
     lien: "app.html#arbres",
     description: "Entre les réponses de ton équipe pour les 7 stations et découvre ton score." }
+];
+
+var OPTION_SCIENCE = [
+  { icone: "avion", titre: "Avions en papier", niveaux: "3e à 6e année", date: "2026-11-27",
+    lien: "https://www.kreaplanet.com/fr/bricolage/c-fabriquer-des-avions-en-papier",
+    description: "Choisis ton modèle et plie-le avec la vidéo et les étapes en photos. Ensuite, on mesure la distance et le temps de vol!" }
 ];
 
 var SITES = [
@@ -213,6 +225,7 @@ var JOURS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "sam
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") fermer(); });
   document.addEventListener("fullscreenchange", function () { if (!document.fullscreenElement) fermer(); });
 })();
+remplir("grilleOption", OPTION_SCIENCE, "Les activités d'Option science arrivent bientôt!");
 remplir("grilleActivites", ACTIVITES, "D'autres activités arrivent bientôt!");
 document.getElementById("grilleSites").innerHTML = SITES.map(carte).join("");
 document.getElementById("grilleSorties").innerHTML = SORTIES.map(carte).join("");
